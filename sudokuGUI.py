@@ -42,19 +42,29 @@ def createGUI(board):
     canvas.pack(side = 'top')
     top.mainloop()  
 
+def newBoardOnGUI():
+    newboard = sudoku.createNewBoard()
+    printBoardOnGUI(newboard)
+    global secs,mins
+    secs=0
+    mins=0
+
+
 def createButtons(top,board):
     button_solve = Button(top, text="Solve", justify='left', bg = 'green', font="Helvetica 10 bold",default='active', command = lambda: solveBoard(top,board))
     button_reset = Button(top, text="Reset", justify='right',bg = 'red' , font="Times 10 bold",command = lambda: resetBoard())
-    label =Label(top, text="0 : 0", fg="blue", font="Verdana 20 bold") 
-    button_solve.place(x=170, y=275, height=30, width=60)
+    button_new = Button(top, text="Generate New Puzzle", justify='right',bg = 'yellow' , font="Times 10 bold",command = lambda: newBoardOnGUI())
+    button_solve.place(x=180, y=275, height=30, width=60)
     button_reset.place(x=255, y=275, height=30, width=60)
-    label.place(x=35, y=271)
+    button_new.place(x=35, y=275, height=30, width=130)
+    label =Label(top, text="0 : 0", fg="blue", font="Verdana 18 bold")
+    label.place(x=35, y=0)
     def startClock(label):
         def count() : 
             global secs,mins
             if mins < 10:
                 if secs < 10 :
-                    display= '0' + str(mins) + ' : ' + '0' + str(secs)
+                    display= '0' + str(mins) + ' : ' + '0' + str(secs) 
                 else : 
                     display= '0' + str(mins) + ' : ' + str(secs)
             else:
@@ -124,16 +134,6 @@ def createCol(canvas):
 
     
 if __name__=="__main__":
-    board1=[[0 for x in range(9)]for y in range(9)]
-    board = [
-        [7,8,'',4,'','',1,2,''],
-        [6,'','','',7,5,'','',9],
-        ['','','',6,'',1,'',7,8],
-        ['','',7,'',4,'',2,6,''],
-        ['','',1,'',5,'',9,3,''],
-        [9,'',4,'',6,'','','',5],
-        ['',7,'',3,'','','',1,2],
-        [1,2,'','','',7,4,'',''],
-        ['',4,9,2,'',6,'','',7]
-    ]
+    
+    board = sudoku.createNewBoard()
     createGUI(board)

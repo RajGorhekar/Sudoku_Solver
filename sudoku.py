@@ -1,3 +1,5 @@
+from random import randint
+
 board = [
     [7,8,0,4,0,0,1,2,0],
     [6,0,0,0,7,5,0,0,9],
@@ -75,9 +77,19 @@ def solveSudoku(board):
     
     return False
 
-# printBoard(board)
-# a = solveSudoku(board)
-# if a:
-#     printBoard(board)
-# else:
-#     print ('unsolvable')
+
+def createNewBoard():
+    newboard = [[0 for x in range(9)]for y in range(9)]
+    for pos in [(0,0),(0,1),(1,1),(4,4),(7,7),(7,1),(1,7),(4,1),(4,7),(1,4),(7,4)] :
+        x=randint(1,9)
+        if(isValid(newboard,x,pos)) :
+           newboard[pos[0]][pos[1]] =  x
+    solveSudoku(newboard)
+    for i in range(0,60) :
+        row = randint(0,8)
+        col = randint(0,8)
+        newboard[row][col] = ''
+    return newboard
+
+
+# print(createNewBoard())
